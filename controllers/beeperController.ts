@@ -110,6 +110,27 @@ export const addNewBeeper = async (req: Request, res: Response): Promise<void> =
     }
   };
 
+//   export const getBeepersByStatus = async (req: Request, res: Response): Promise<void> => {
+//     try {
+//     const beeperStatus: Status = req.params.status;
+//     // const beeperId: number = req.params.userId;
+//       if (!beeperStatus) {
+//         res.status(400).json({ error: "beeperStatus are required." });
+//         return;
+//       }
   
+//       const bepper = await getBeepersByStatusCode(beeperStatus);
+//       res.status(200).json(bepper);
+//     } catch (error: any) {
+//       // you can also check for unkown if it instance of Error.
+//       if (error.message === "Invalid username or password.") {
+//         res.status(401).json({ error: error.message });
+//       } else {
+//         console.error("Error during login:", error);
+//         res.status(500).json({ error: "Internal server error." });
+//       }
+//     }
+
+//   };
   
 

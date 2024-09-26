@@ -9,6 +9,8 @@ router.route('/beepers').get(getAllBeepers);
 router.route('/beepers/:id').get(getBeeper);
 router.route('/beepers/:id/status').put(updateStatus);
 router.route('/beepers/:id').delete(deleteBeeper);
+// router.route('/beepers/status/:status').get(getBeepersByStatus);
+
 
 
 

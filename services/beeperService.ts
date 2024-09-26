@@ -38,8 +38,6 @@ export const getBeeperSingel = async (beeperId: string): Promise<Beeper | undefi
     const beppers: Beeper[] = await readFromJsonFile();
     const beeper = beppers.find((b) => b.id === beeperId);
     
-    
-    
     if (!beeper) {
       throw new Error("beeper not exists.");
     }
@@ -114,3 +112,17 @@ export const deleteBeeperFromDB = async (beeperId: string): Promise<void> => {
     beepers.splice(index, 1);
     await writeToJsonFile(beepers);
   };
+
+
+    
+// export const getBeepersByStatusCode = async (beeperStatus: Status): Promise<Beeper[] | undefined> => {
+//     const beppers: Beeper[] = await readFromJsonFile();
+//     const beeper = beppers.find((b) => b.id === beeperId);
+    
+//     if (!beeper) {
+//       throw new Error("beeper not exists.");
+//     }
+//     if (beeper) {
+//       return beeper;
+//     }
+//   };
