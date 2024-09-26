@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Beeper } from '../models/typs.js'
-import { addBeeper, getBeepers, getBeeperSingel } from '../services/beeperService.js';
+import { addBeeper, getBeepers, getBeeperSingel, updateStatusS, deleteBeeperFromDB } from '../services/beeperService.js';
+import { Status } from '../utils/utils.js';
 
 
 
@@ -66,6 +67,49 @@ export const addNewBeeper = async (req: Request, res: Response): Promise<void> =
       }
     }
   };
+  
+
+  export const updateStatus = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const beeperId : string =  req.params.id;
+
+      if (!beeperId) {
+        res.status(400).json({ error: "beeperId are required." });
+        return;
+      }
+  
+      const book = await updateStatusS(beeperId);
+      res.status(201).json({ book} );
+    } catch (error: any) {
+      if (error.message === "Username already exists.") {
+        res.status(409).json({ error: error.message });
+      } else {
+        console.error("Error registering user:", error);
+        res.status(500).json({ error: "Internal server error." });
+      }
+    }
+  };
+
+
+  export const deleteBeeper = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const beeperId : string =  req.params.id;  
+      if (!beeperId) {
+        res.status(400).json({ error: "bepperId are required." });
+        return;
+      }
+      await deleteBeeperFromDB(beeperId);
+      res.status(200).json({ success: "Internal server success." });
+    } catch (error: any) {
+      if (error.message === "Username already exists.") {
+        res.status(409).json({ error: error.message });
+      } else {
+        console.error("Error registering user:", error);
+        res.status(500).json({ error: "Internal server error." });
+      }
+    }
+  };
+
   
   
 

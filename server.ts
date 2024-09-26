@@ -10,7 +10,7 @@ const app: Application = express();
 
 
 app.use(express.json());
-app.use('/',biperRouter);
+app.use('/api',biperRouter);
 
 
 app.listen(PORT, ()=> {console.log(`server listen to port:  ${PORT}`);
