@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { addBeeper, getBeepers, getBeeperSingel, updateStatusS, deleteBeeperFromDB } from '../services/beeperService.js';
+import { addBeeper, getBeepers, getBeeperSingel, updateStatusS, deleteBeeperFromDB, getBeepersByS } from '../services/beeperService.js';
 export const addNewBeeper = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const beeper = req.body;
@@ -98,6 +98,22 @@ export const deleteBeeper = (req, res) => __awaiter(void 0, void 0, void 0, func
         }
         yield deleteBeeperFromDB(beeperId);
         res.status(200).json({ success: "Internal server success." });
+    }
+    catch (error) {
+        if (error.message === "Username already exists.") {
+            res.status(409).json({ error: error.message });
+        }
+        else {
+            console.error("Error registering user:", error);
+            res.status(500).json({ error: "Internal server error." });
+        }
+    }
+});
+export const getBeepersByStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const bepperStatus = req.params.status;
+        const beepers = yield getBeepersByS(bepperStatus);
+        res.status(201).json({ beepers });
     }
     catch (error) {
         if (error.message === "Username already exists.") {

@@ -25,12 +25,7 @@ export const addBeeper = (beeper) => __awaiter(void 0, void 0, void 0, function*
 });
 export const getBeepers = () => __awaiter(void 0, void 0, void 0, function* () {
     const beepers = yield readFromJsonFile();
-    if (!beepers) {
-        throw new Error("Username already exists.");
-    }
-    if (beepers) {
-        return beepers;
-    }
+    return beepers;
 });
 export const getBeeperSingel = (beeperId) => __awaiter(void 0, void 0, void 0, function* () {
     const beppers = yield readFromJsonFile();
@@ -99,4 +94,11 @@ export const deleteBeeperFromDB = (beeperId) => __awaiter(void 0, void 0, void 0
     const index = beepers.findIndex((i) => i.id === beeperFind.id);
     beepers.splice(index, 1);
     yield writeToJsonFile(beepers);
+});
+export const getBeepersByS = (status) => __awaiter(void 0, void 0, void 0, function* () {
+    const beepers = yield getBeepers();
+    if (beepers) {
+        const beepersFind = beepers.filter((beeper) => { var _a; return ((_a = beeper.status) === null || _a === void 0 ? void 0 : _a.toString()) === status; });
+        return beepersFind;
+    }
 });

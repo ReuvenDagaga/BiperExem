@@ -24,20 +24,14 @@ export const addBeeper = async (beeper: Beeper): Promise<any> => {
 
 export const getBeepers = async (): Promise<Beeper[] | undefined> => {
     const beepers: Beeper[] = await readFromJsonFile();  
-    if (!beepers) {
-      throw new Error("Username already exists.");
-    }
-    if (beepers) {
       return beepers;
-    }
   };
 
 
   
 export const getBeeperSingel = async (beeperId: string): Promise<Beeper | undefined> => {
     const beppers: Beeper[] = await readFromJsonFile();
-    const beeper = beppers.find((b) => b.id === beeperId);
-    
+    const beeper = beppers.find((b) => b.id === beeperId);  
     if (!beeper) {
       throw new Error("beeper not exists.");
     }
@@ -115,14 +109,12 @@ export const deleteBeeperFromDB = async (beeperId: string): Promise<void> => {
 
 
     
-// export const getBeepersByStatusCode = async (beeperStatus: Status): Promise<Beeper[] | undefined> => {
-//     const beppers: Beeper[] = await readFromJsonFile();
-//     const beeper = beppers.find((b) => b.id === beeperId);
+  export const getBeepersByS = async (status: string): Promise<Beeper[] | undefined> => {
     
-//     if (!beeper) {
-//       throw new Error("beeper not exists.");
-//     }
-//     if (beeper) {
-//       return beeper;
-//     }
-//   };
+    const beepers: Beeper[] | undefined = await getBeepers();
+  
+    if (beepers) {
+      const beepersFind: Beeper[] | undefined = beepers.filter((beeper) => beeper.status?.toString() === status);
+      return beepersFind;
+    }
+  };
